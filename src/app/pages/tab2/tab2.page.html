@@ -1,17 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title *ngIf="error!=null">{{error.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <p *ngIf="error!=null">{{error.message}}</p>
+  <ion-accordion-group *ngFor="let item of usuario">
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>{{item.us_nombre}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">{{item.us_cedula}}</div>
+    </ion-accordion>
+  </ion-accordion-group>
 </ion-content>
