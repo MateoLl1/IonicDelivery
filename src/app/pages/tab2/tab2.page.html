@@ -1,17 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title *ngIf="error!=null">{{error.name}}</ion-title>
+    <ion-title>Bienvenidos</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <p *ngIf="error!=null">{{error.message}}</p>
-  <ion-accordion-group *ngFor="let item of usuario">
-    <ion-accordion value="first">
-      <ion-item slot="header" color="light">
-        <ion-label>{{item.us_nombre}}</ion-label>
-      </ion-item>
-      <div class="ion-padding" slot="content">{{item.us_cedula}}</div>
-    </ion-accordion>
-  </ion-accordion-group>
-</ion-content>
+<ion-content [fullscreen]="true"> </ion-content>

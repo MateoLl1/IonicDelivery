@@ -1,32 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Mateo Llerena
-    </ion-title>
+    <ion-title> Mateo Llerena </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
+  <div>
+    <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+  </div>
 
-  <!-- <ion-accordion-group *ngFor="let item of nuevasCanciones">
-    <ion-accordion value="first">
-      <ion-item slot="header" color="light">
-        <ion-label>{{item.name}}</ion-label>
-      </ion-item>
-    </ion-accordion>
-  </ion-accordion-group> -->
-
-
-  <h1>Nuevos Existos</h1>
-  <hr />
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col" *ngFor="let cancion of nuevasCanciones">
-      <div class="card h-100">
-        <img [src]="cancion.images|noImagen" class="card-img-top" alt="..." />
-        <div class="card-body">
-          <h5 class="card-title">{{ cancion.name }}</h5>
-          <span *ngFor="let artista of cancion.artists" class="badge text-bg-primary">{{ artista.name }}</span>
-        </div>
-      </div>
-    </div>
+  <div *ngIf="imageBase64">
+    <img [src]="imageBase64" alt="Imagen seleccionada" />
   </div>
 </ion-content>

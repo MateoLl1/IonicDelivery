@@ -1,0 +1,31 @@
+<ion-content [fullscreen]="true">
+  <ion-card style="margin-top: 30%">
+    <img
+      alt="Silhouette of mountains"
+      src="https://ionicframework.com/docs/img/demos/card-media.png"
+      style="width: 100%"
+    />
+    <ion-card-header>
+      <ion-card-title>Iniciar Seccion</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label aria-label="Email" position="floating">Usuario:</ion-label>
+          <ion-input [(ngModel)]="usuario"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Contraseña:</ion-label>
+          <ion-input [(ngModel)]="password" type="password"></ion-input>
+        </ion-item>
+      </ion-list>
+      <div class="ion-text-center">
+        <ion-button (click)="iniciarSeccion()">Iniciar</ion-button>
+      </div>
+      <div class="ion-text-end">
+        <a class="ion-text-end">Registrarme</a>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

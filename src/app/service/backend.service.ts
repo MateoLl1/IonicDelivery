@@ -1,31 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BackendService {
-  ruta: string =
-    'BQDRHEXNysxyZWLNy6z4AmsbPnAEMuZKtfi_Al4l1WRZqsH5flwnXko-LvmKPC2aYC4NfoMQ8nB8qaa4yy3rrmOzMdYtuBIOUhQfjS8tLNVVLEnX4_U';
-
-  api: string = 'http://192.168.1.43:4040/Cargar';
+  //Servidor de NodeJs
+  servidorNodeJs = 'https://mateoservice.onrender.com';
+  //Cargar de Imagenes
+  servidorImagenes = 'https://api.pexels.com/v1/search?query=people';
+  keySerImages = 'ETtoN9X0r4UFpHgRFVVGKWqYZl22ggHwLlH2RSvv2SPItaUjgLBpVFYR';
+  //Guardar Imagenes
+  guardarImagenes = 'https://api.imgbb.com/1/upload?';
+  keyHostImages = '962e35674435a6e12712a11d03f4d97c';
   constructor(private http: HttpClient) {}
 
-  getQuery(query: string) {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.ruta}`,
-    });
-    return this.http.get(`https://api.spotify.com/v1/${query}`, {
-      headers,
-    });
-  }
-
-  conectarSpotify() {
-    console.log('Conectado a Spotify');
-    return this.getQuery('browse/new-releases');
-  }
-
-  conectarApi() {
-    return this.http.post(this.api, null);
+  cargarUsuarios() {
+    return this.http.post(`${this.servidorNodeJs}/Cargar`, null);
   }
 }
