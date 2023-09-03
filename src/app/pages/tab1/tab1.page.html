@@ -6,9 +6,11 @@
 <ion-content [fullscreen]="true">
   <div>
     <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+    <ion-button (click)="subirImagen()">Guardar imagen</ion-button>
   </div>
 
-  <div *ngIf="imageBase64">
-    <img [src]="imageBase64" alt="Imagen seleccionada" />
+  <div class="container" *ngIf="llego">
+    <p>{{hostImages}}</p>
+    <img [src]="hostImages" alt="" />
   </div>
 </ion-content>
