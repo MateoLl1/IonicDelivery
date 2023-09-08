@@ -5,12 +5,19 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./pages/tabs/tabs.module').then((m) => m.TabsPageModule),
+      import('./pages/login/login.module').then((m) => m.LoginPageModule),
   },
   {
     path: '',
     loadChildren: () =>
-      import('./pages/login/login.module').then((m) => m.LoginPageModule),
+      import('./pages/tabs/tabs.module').then((m) => m.TabsPageModule),
+  },
+  {
+    path: 'registro',
+    loadChildren: () =>
+      import('./pages/registro/registro.module').then(
+        (m) => m.RegistroPageModule
+      ),
   },
 ];
 @NgModule({

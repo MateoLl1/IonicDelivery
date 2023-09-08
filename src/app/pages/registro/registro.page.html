@@ -1,0 +1,53 @@
+<ion-content
+  class="text-center"
+  style="padding-left: 0; padding-right: 0; margin: 0"
+>
+  <ion-card>
+    <ion-card-content>
+      <ion-toolbar>
+        <ion-title class="titulo-bonito">Registro</ion-title>
+      </ion-toolbar>
+
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="nombre" type="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Cedula</ion-label>
+        <ion-input [(ngModel)]="cedula" type="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Telefono</ion-label>
+        <ion-input [(ngModel)]="telefono" type="email"></ion-input>
+      </ion-item>
+
+      <ion-item class="cont-fecha">
+        <label for="">Fecha de nacimiento</label>
+        <input [(ngModel)]="fechaNacimiento" type="date" max="2023-09-07" />
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nickname</ion-label>
+        <ion-input [(ngModel)]="nickname" disabled="" type="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input [(ngModel)]="password" type="password"></ion-input>
+      </ion-item>
+
+      <div class="d-grid gap-2 col-6 mx-auto p-4">
+        <button (click)="registrar()" class="btn btn-primary" type="button">
+          Registrarme
+        </button>
+      </div>
+      <div class="ion-text-center">
+        <ion-button
+          (click)="navegarInicio()"
+          fill="clear"
+          size="small"
+          routerLink="/registro"
+          >Ya tengo una cuenta!</ion-button
+        >
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

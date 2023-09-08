@@ -1,3 +1,4 @@
+import { DeliveryService } from './../../service/delivery.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -12,40 +13,45 @@ export class LoginPage implements OnInit {
   usuario: string = '';
   password: string = '';
   respuesta: boolean = false;
+
+  imagenPath = '../../../assets/img/imagen-login.png';
+
   constructor(
     private alertController: AlertController,
     private http: HttpClient,
-    private router: Router
-  ) {}
+    private router: Router,
+    private delivery: DeliveryService
+  ) {
+    router.navigate(['registro']);
+  }
 
   ngOnInit() {}
 
+  navegarRegistro() {
+    this.router.navigate(['registro']);
+  }
+
   iniciarSeccion() {
-    const url = 'https://mateoservice.onrender.com/login';
-    const Usuario = {
-      Usuario: this.usuario,
-      Pass: this.password,
-    };
-    this.http.post(url, Usuario).subscribe(
-      (response: any) => {
-        console.log(response);
-        if (response.Res === true) {
-          const titulo = 'Bienvenido';
-          const subtitulo = `${this.usuario}`;
-          this.presentAlert(titulo, subtitulo);
+    if (this.usuario.trim() === '' || this.password.trim() === '') {
+      this.presentAlert('Llene los campos', '');
+    } else {
+      const objUsuario = {
+        Usuario: this.usuario,
+        Pass: this.password,
+      };
+      console.log(objUsuario);
+      this.delivery.validarCredenciales(objUsuario).subscribe((data: any) => {
+        console.log(data.Res);
+        if (data.Res === true) {
+          this.presentAlert('Bienvenido', '');
           this.router.navigate(['tabs/tab1']);
         } else {
-          const titulo = 'Credenciales Incorrectas';
-          const mensaje = `Usuario o contraseña incorrectas`;
-          this.presentAlert(titulo, mensaje);
+          this.presentAlert('Credenciales incorrectas', '');
+          this.usuario = '';
+          this.password = '';
         }
-      },
-      (error) => {
-        const titulo = 'Error de Conexion';
-        const mensaje = `Verifica que tengas internet`;
-        this.presentAlert(titulo, mensaje);
-      }
-    );
+      });
+    }
   }
 
   async presentAlert(titulo: string, subtitulo: string) {
