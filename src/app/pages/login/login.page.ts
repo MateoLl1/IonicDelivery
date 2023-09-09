@@ -22,16 +22,9 @@ export class LoginPage implements OnInit {
     private http: HttpClient,
     private router: Router,
     private delivery: DeliveryService
-  ) {
-    this.verificarConexionInternet();
-  }
+  ) {}
 
   ngOnInit() {}
-
-  async verificarConexionInternet() {
-    const status = await Network.getStatus();
-    this.Internet = status.connected;
-  }
 
   navegarRegistro() {
     this.router.navigate(['registro']);
