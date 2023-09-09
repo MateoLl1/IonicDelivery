@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from 'src/app/service/backend.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-tab1',
@@ -16,10 +15,7 @@ export class Tab1Page implements OnInit {
   hostImages: string = '';
   llego: boolean = false;
 
-  constructor(
-    private servidor: BackendService,
-    private httpClient: HttpClient
-  ) {}
+  constructor(private servidor: BackendService) {}
   ngOnInit() {}
 
   async subirImagen() {

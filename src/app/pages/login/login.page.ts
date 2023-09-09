@@ -10,6 +10,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  Internet: boolean = false;
   usuario: string = '';
   password: string = '';
   respuesta: boolean = false;
@@ -22,35 +23,44 @@ export class LoginPage implements OnInit {
     private router: Router,
     private delivery: DeliveryService
   ) {
-    router.navigate(['registro']);
+    this.verificarConexionInternet();
   }
 
   ngOnInit() {}
+
+  async verificarConexionInternet() {
+    const status = await Network.getStatus();
+    this.Internet = status.connected;
+  }
 
   navegarRegistro() {
     this.router.navigate(['registro']);
   }
 
   iniciarSeccion() {
-    if (this.usuario.trim() === '' || this.password.trim() === '') {
-      this.presentAlert('Llene los campos', '');
+    if (this.Internet === true) {
+      if (this.usuario.trim() === '' || this.password.trim() === '') {
+        this.presentAlert('Llene los campos', '');
+      } else {
+        const objUsuario = {
+          Usuario: this.usuario,
+          Pass: this.password,
+        };
+        console.log(objUsuario);
+        this.delivery.validarCredenciales(objUsuario).subscribe((data: any) => {
+          console.log(data.Res);
+          if (data.Res === true) {
+            this.presentAlert('Bienvenido', '');
+            this.router.navigate(['tabs/tab1']);
+          } else {
+            this.presentAlert('Credenciales incorrectas', '');
+            this.usuario = '';
+            this.password = '';
+          }
+        });
+      }
     } else {
-      const objUsuario = {
-        Usuario: this.usuario,
-        Pass: this.password,
-      };
-      console.log(objUsuario);
-      this.delivery.validarCredenciales(objUsuario).subscribe((data: any) => {
-        console.log(data.Res);
-        if (data.Res === true) {
-          this.presentAlert('Bienvenido', '');
-          this.router.navigate(['tabs/tab1']);
-        } else {
-          this.presentAlert('Credenciales incorrectas', '');
-          this.usuario = '';
-          this.password = '';
-        }
-      });
+      this.presentAlert('⚠ No tienes Internet', '');
     }
   }
 

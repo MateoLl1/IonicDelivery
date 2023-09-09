@@ -1,6 +1,7 @@
 import { DeliveryService } from './../../service/delivery.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro',
@@ -14,11 +15,21 @@ export class RegistroPage implements OnInit {
   telefono: string = '';
   nickname: string = '';
   password: string = '';
-  fechaNacimiento: Date | null = null;
+  fechaNacimiento: string = '';
   fechaActual: string = '';
 
-  constructor(private router: Router, private delivery: DeliveryService) {
+  constructor(
+    private router: Router,
+    private delivery: DeliveryService,
+    private alertController: AlertController
+  ) {
     this.obtenerFechaActual();
+  }
+
+  ngOnInit() {
+    setInterval(() => {
+      this.generarNick();
+    }, 1000);
   }
 
   obtenerFechaActual() {
@@ -34,16 +45,60 @@ export class RegistroPage implements OnInit {
   }
 
   registrar() {
-    const objUsuario = {
-      nombre: this.nombre,
-      cedula: this.cedula,
-      telefono: this.telefono,
-      nickname: this.nickname,
-      password: this.password,
-      Nacimiento: this.fechaNacimiento,
-      hoy: this.fechaActual,
-    };
-    console.log(objUsuario);
+    if (
+      this.nombre.trim() === '' ||
+      this.cedula.trim() === '' ||
+      this.telefono.trim() === '' ||
+      this.password.trim() === '' ||
+      this.fechaNacimiento.trim() === ''
+    ) {
+      this.presentAlert('Llene los campos', '');
+    } else {
+      if (/^\d+$/.test(this.cedula) && /^\d+$/.test(this.telefono)) {
+        if (this.cedula.length == 10 && this.telefono.length == 10) {
+          if (this.password.length > 7) {
+            ///REGISTRO
+            const objUsuario = {
+              nombre: this.nombre,
+              cedula: this.cedula,
+              telefono: this.telefono,
+              nickname: this.nickname,
+              password: this.password,
+              Nacimiento: this.fechaNacimiento,
+              imagen: 'https://i.ibb.co/t2DmbCF/f4de72488ffa.png',
+              hoy: this.fechaActual,
+            };
+            console.log(objUsuario);
+            this.delivery
+              .registrarUsuario(objUsuario)
+              .subscribe((data: any) => {
+                console.log(data.Res);
+              });
+          } else {
+            this.presentAlert('Contraseña insegura', '');
+          }
+        } else {
+          this.presentAlert('Cedula o numero invalido', '');
+        }
+      } else {
+        this.presentAlert('Cedula o numero invalido', '');
+      }
+    }
   }
-  ngOnInit() {}
+
+  generarNick() {
+    let nick = this.nombre + this.telefono.slice(-2) + this.cedula.slice(-2);
+    this.nickname = nick.toLowerCase();
+  }
+
+  async presentAlert(titulo: string, subtitulo: string) {
+    const alert = await this.alertController.create({
+      header: `${titulo}`,
+      subHeader: `${subtitulo}`,
+      message: ``,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
 }
