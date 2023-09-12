@@ -1,0 +1,28 @@
+.centrar {
+  display: flex;
+  justify-content: center;
+}
+
+.cont-mas-menos {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+}
+
+.cont-pedido {
+  background-color: #1450a3;
+  color: #8ddfcb;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 10px 10px;
+  justify-content: space-between;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.texto {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}

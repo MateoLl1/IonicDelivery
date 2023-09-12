@@ -2,6 +2,7 @@ import { DeliveryService } from './../../service/delivery.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-registro',
@@ -9,6 +10,8 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
+  Internet: boolean = false;
+
   //DOM
   nombre: string = '';
   cedula: string = '';
@@ -26,9 +29,25 @@ export class RegistroPage implements OnInit {
     this.obtenerFechaActual();
   }
 
+  verificarConexionInternet(): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      const image = new Image();
+      image.src = 'https://www.google.com/images/phd/px.gif'; // Intentamos cargar una imagen de Google
+
+      image.onload = () => {
+        this.Internet = true;
+      };
+
+      image.onerror = () => {
+        this.Internet = false;
+      };
+    });
+  }
+
   ngOnInit() {
     setInterval(() => {
       this.generarNick();
+      this.verificarConexionInternet();
     }, 1000);
   }
 
@@ -71,8 +90,23 @@ export class RegistroPage implements OnInit {
             console.log(objUsuario);
             this.delivery
               .registrarUsuario(objUsuario)
+              .pipe(
+                catchError((error) => {
+                  console.log(error);
+                  this.presentAlert('⚠ Error de conexión', '');
+                  return [];
+                })
+              )
               .subscribe((data: any) => {
                 console.log(data.Res);
+                this.delivery.setUsuario(
+                  data.Res.usuario.us_id,
+                  data.Res.usuario.us_nombre
+                );
+                if (data.Res.success === true) {
+                  this.presentAlert('Bienvenido', '');
+                  this.router.navigate(['tabs/tab1']);
+                }
               });
           } else {
             this.presentAlert('Contraseña insegura', '');

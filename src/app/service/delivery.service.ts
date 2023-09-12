@@ -1,15 +1,35 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DeliveryService {
-  servidorLocal = 'https://mateoservice.onrender.com';
+  local: string = 'http://localhost:4040';
+  online: string = 'https://mateoservice.onrender.com';
+  servidorLocal = `${this.online}`;
+
+  //Variables megaGlobales
+  idUsuario: number | null = null;
+  nombreUsuario: string | null = null;
+
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
   });
   constructor(private http: HttpClient) {}
+
+  /// Usuario
+  getUsuario() {
+    console.log(`ID: ${this.idUsuario}`);
+    console.log(`Nombre: ${this.nombreUsuario}`);
+    return [this.idUsuario, this.nombreUsuario];
+  }
+
+  setUsuario(id: number, nombre: string) {
+    this.idUsuario = id;
+    this.nombreUsuario = nombre;
+  }
 
   validarCredenciales(data: any) {
     return this.http.post(`${this.servidorLocal}/login`, data, {
@@ -19,6 +39,23 @@ export class DeliveryService {
 
   registrarUsuario(data: any) {
     return this.http.post(`${this.servidorLocal}/registrarUsuario`, data, {
+      headers: this.headers,
+    });
+  }
+
+  //EMPRESA
+  cargarEmpresas() {
+    return this.http.post(`${this.servidorLocal}/cargarEmpresa`, null);
+  }
+
+  empresaId(data: any) {
+    return this.http.post(`${this.servidorLocal}/idEmpresa`, data, {
+      headers: this.headers,
+    });
+  }
+
+  productoId(data: any) {
+    return this.http.post(`${this.servidorLocal}/idProductos`, data, {
       headers: this.headers,
     });
   }

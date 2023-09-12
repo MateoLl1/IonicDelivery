@@ -1,16 +1,36 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title> Mateo Llerena </ion-title>
-  </ion-toolbar>
-</ion-header>
 <ion-content [fullscreen]="true">
-  <div>
-    <input type="file" (change)="onFileSelected($event)" accept="image/*" />
-    <ion-button (click)="subirImagen()">Guardar imagen</ion-button>
-  </div>
-
-  <div class="container" *ngIf="llego">
-    <p>{{hostImages}}</p>
-    <img [src]="hostImages" alt="" />
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        <h2 class="text-center" style="margin-top: 10px">
+          Bienvenido {{usuario[1]}}
+        </h2>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <!-- ////// -->
+  <div class="centrar-contenedor m-5">
+    <a
+      *ngFor="let item of empresas"
+      (click)="navegarProductoEmpresa(item.em_id)"
+    >
+      <div class="card mb-3" style="max-width: 640px">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img
+              [src]="item.em_imagen"
+              class="img-fluid rounded-start h-100 w-100 object-fit-cover"
+              alt="..."
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ item.em_nombre }}</h5>
+              <p class="card-text">{{ item.em_eslogan }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
   </div>
 </ion-content>

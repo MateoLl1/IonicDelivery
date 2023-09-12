@@ -1,0 +1,83 @@
+<ion-content [fullscreen]="true">
+  <div *ngFor="let item of empresa" class="text-center mt-2">
+    <img
+      [src]="item.em_imagen"
+      alt="Logo"
+      width="80"
+      height="80"
+      class="d-inline-block align-text-top"
+      id="imgCargar"
+    />
+    <hr />
+  </div>
+  <div class="caja-productos" style="margin-bottom: 130px">
+    <div
+      style="margin-top: 30px"
+      *ngIf="!productos || productos.length === 0"
+      class="alert alert-danger"
+      role="alert"
+    >
+      Productos proximamente
+    </div>
+
+    <div class="container" *ngIf="productos.length > 0">
+      <div class="row">
+        <div
+          class="col-md-3 mt-3 centrar"
+          *ngFor="let item of productos;let i = index"
+        >
+          <!-- //////// -->
+          <div class="card" style="width: 15rem">
+            <img [src]="item.pro_imagen" class="card-img-top" height="150px" />
+            <div class="card-body">
+              <h5 class="card-title">{{ item.pro_nombre }}</h5>
+              <p class="card-text">{{ item.pro_descripcion }}</p>
+              <div class="form-text">
+                {{ item.pro_precio | number : "1.2-2" }}
+              </div>
+              <div class="cont-mas-menos align-items-center">
+                <button
+                  (click)="restar(i,item.pro_precio)"
+                  class="btn btn-warning me-md-2"
+                  type="button"
+                >
+                  -
+                </button>
+                <label>{{cantidades[i]}}</label>
+                <button
+                  (click)="sumar(i,item.pro_precio)"
+                  class="btn btn-info me-md-2"
+                  type="button"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ////////// -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- logica del negocio -->
+  <div
+    class="cont-pedido"
+    style="
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding: 10px;
+    "
+    *ngIf="compra"
+  >
+    <div class="cont-pedido texto">
+      <h6>{{cantidadTotal}} productos</h6>
+      <h3>${{precioTotal| number : "1.2-2"}}</h3>
+    </div>
+    <button class="btn btn-outline-warning w-50">Confirmar pedido</button>
+  </div>
+</ion-content>

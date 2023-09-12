@@ -28,6 +28,13 @@ const routes: Routes = [
           import('../login/login.module').then((m) => m.LoginPageModule),
       },
       {
+        path: 'producto/:id',
+        loadChildren: () =>
+          import('../producto/producto.module').then(
+            (m) => m.ProductoPageModule
+          ),
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full',

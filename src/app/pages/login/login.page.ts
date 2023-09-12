@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,8 @@ import { AlertController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   Internet: boolean = false;
-  usuario: string = '';
-  password: string = '';
+  usuario: string = 'mateo510 ';
+  password: string = '12345678';
   respuesta: boolean = false;
 
   imagenPath = '../../../assets/img/imagen-login.png';
@@ -22,27 +23,61 @@ export class LoginPage implements OnInit {
     private http: HttpClient,
     private router: Router,
     private delivery: DeliveryService
-  ) {}
+  ) {
+    this.verificarConexionInternet();
+  }
 
-  ngOnInit() {}
+  verificarConexionInternet(): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      const image = new Image();
+      image.src = 'https://www.google.com/images/phd/px.gif'; // Intentamos cargar una imagen de Google
+
+      image.onload = () => {
+        this.Internet = true;
+      };
+
+      image.onerror = () => {
+        this.Internet = false;
+      };
+    });
+  }
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.verificarConexionInternet();
+    }, 1000);
+  }
 
   navegarRegistro() {
     this.router.navigate(['registro']);
   }
 
   iniciarSeccion() {
-    if (this.Internet === true) {
-      if (this.usuario.trim() === '' || this.password.trim() === '') {
-        this.presentAlert('Llene los campos', '');
-      } else {
-        const objUsuario = {
-          Usuario: this.usuario,
-          Pass: this.password,
-        };
-        console.log(objUsuario);
-        this.delivery.validarCredenciales(objUsuario).subscribe((data: any) => {
-          console.log(data.Res);
-          if (data.Res === true) {
+    if (this.usuario.trim() === '' || this.password.trim() === '') {
+      this.presentAlert('Llene los campos', '');
+    } else {
+      const objUsuario = {
+        Usuario: this.usuario,
+        Pass: this.password,
+      };
+      console.log(objUsuario);
+
+      this.delivery
+        .validarCredenciales(objUsuario)
+        .pipe(
+          catchError((error) => {
+            console.error('Error en la solicitud:', error);
+            this.presentAlert('⚠ Error de conexión', '');
+            return [];
+          })
+        )
+        .subscribe((data: any) => {
+          console.log(data.Res.success);
+          this.delivery.setUsuario(
+            data.Res.usuario.us_id,
+            data.Res.usuario.us_nombre
+          );
+          if (data.Res.success === true) {
             this.presentAlert('Bienvenido', '');
             this.router.navigate(['tabs/tab1']);
           } else {
@@ -51,9 +86,6 @@ export class LoginPage implements OnInit {
             this.password = '';
           }
         });
-      }
-    } else {
-      this.presentAlert('⚠ No tienes Internet', '');
     }
   }
 
