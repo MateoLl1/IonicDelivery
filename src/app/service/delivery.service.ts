@@ -11,7 +11,7 @@ export class DeliveryService {
   servidorLocal = `${this.online}`;
 
   //Variables megaGlobales
-  idUsuario: number | null = null;
+  idUsuario: number = 1;
   nombreUsuario: string | null = null;
 
   headers = new HttpHeaders({
@@ -43,6 +43,18 @@ export class DeliveryService {
     });
   }
 
+  obtenerUsuarioId(data: any) {
+    return this.http.post(`${this.servidorLocal}/idUsuario`, data, {
+      headers: this.headers,
+    });
+  }
+
+  actualizarUsuario(data: any) {
+    return this.http.post(`${this.servidorLocal}/actualizarUsuario`, data, {
+      headers: this.headers,
+    });
+  }
+
   //EMPRESA
   cargarEmpresas() {
     return this.http.post(`${this.servidorLocal}/cargarEmpresa`, null);
@@ -63,6 +75,12 @@ export class DeliveryService {
   //FACTURA
   crearFactura(data: any) {
     return this.http.post(`${this.servidorLocal}/generarFactura`, data, {
+      headers: this.headers,
+    });
+  }
+
+  traerFacturasId(data: any) {
+    return this.http.post(`${this.servidorLocal}/facturaId`, data, {
       headers: this.headers,
     });
   }

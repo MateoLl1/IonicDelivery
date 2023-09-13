@@ -12,8 +12,8 @@ import { catchError } from 'rxjs/operators';
 })
 export class LoginPage implements OnInit {
   Internet: boolean = false;
-  usuario: string = 'mateo510 ';
-  password: string = '12345678';
+  usuario: string = '';
+  password: string = '';
   respuesta: boolean = false;
 
   imagenPath = '../../../assets/img/imagen-login.png';
@@ -72,18 +72,16 @@ export class LoginPage implements OnInit {
           })
         )
         .subscribe((data: any) => {
-          console.log(data.Res.success);
-          this.delivery.setUsuario(
-            data.Res.usuario.us_id,
-            data.Res.usuario.us_nombre
-          );
+          console.log(data);
           if (data.Res.success === true) {
             this.presentAlert('Bienvenido', '');
+            this.delivery.setUsuario(
+              data.Res.usuario.us_id,
+              data.Res.usuario.us_nombre
+            );
             this.router.navigate(['tabs/tab1']);
-          } else {
-            this.presentAlert('Credenciales incorrectas', '');
-            this.usuario = '';
-            this.password = '';
+          } else if (data.Res == false) {
+            this.presentAlert('Credenciales Incorrectas', '');
           }
         });
     }

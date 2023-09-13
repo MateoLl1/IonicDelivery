@@ -24,4 +24,8 @@ export class Tab1Page implements OnInit {
   navegarProductoEmpresa(id: number) {
     this.router.navigate(['tabs/producto', id]);
   }
+
+  recargar() {
+    location.reload();
+  }
 }

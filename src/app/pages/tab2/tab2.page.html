@@ -6,43 +6,30 @@
       </ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <div class="caja-productos">
+  <ion-fab vertical="bottom" horizontal="end" style="bottom: 70px; right: 20px">
+    <ion-fab-button (click)="recargar()">
+      <ion-icon name="reload"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div *ngIf="facturas.length === 0" class="caja-productos">
     <div style="margin-top: 30px" class="alert alert-danger" role="alert">
       No has realizado ninguna compra
     </div>
   </div>
-  <ion-accordion-group>
-    <ion-accordion>
+  <ion-accordion-group *ngIf="facturas.length >0">
+    <ion-accordion *ngFor="let item of facturas;let i = index">
       <ion-item slot="header" color="light">
-        <ion-label>First Accordion</ion-label>
+        <ion-label>{{i+1}}. {{item.fac_fecha|date: "yyyy-MM-dd"}}</ion-label>
       </ion-item>
       <div class="ion-padding" slot="content">
-        <div class="alert alert-danger" role="alert">
-          No has realizado ninguna compra
-        </div>
-      </div>
-    </ion-accordion>
-    <ion-accordion>
-      <ion-item slot="header" color="light">
-        <ion-label>First Accordion</ion-label>
-      </ion-item>
-      <div class="ion-padding" slot="content">
-        <div class="alert alert-danger" role="alert">
-          No has realizado ninguna compra
-        </div>
-      </div>
-    </ion-accordion>
-    <ion-accordion>
-      <ion-item slot="header" color="light">
-        <ion-label>First Accordion</ion-label>
-      </ion-item>
-      <div class="ion-padding" slot="content">
-        <div class="alert alert-danger" role="alert">
-          No has realizado ninguna compra
+        <div class="alert alert-info" role="alert">
+          Productos : {{item.fac_des_pro}} <br />
+          Precio productos : {{item.fac_des_pre}}
+          <h4>Total: {{item.fac_total}}</h4>
         </div>
       </div>
     </ion-accordion>
   </ion-accordion-group>
+
   <!-- ////////////// -->
 </ion-content>

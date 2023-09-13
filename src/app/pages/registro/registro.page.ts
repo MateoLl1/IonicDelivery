@@ -13,11 +13,11 @@ export class RegistroPage implements OnInit {
   Internet: boolean = false;
 
   //DOM
-  nombre: string = 'lukamodric';
-  cedula: string = '1234567899';
-  telefono: string = '1234567899';
+  nombre: string = '';
+  cedula: string = '';
+  telefono: string = '';
   nickname: string = '';
-  password: string = '12212121';
+  password: string = '';
   fechaNacimiento: string = '';
   fechaActual: string = '';
 

@@ -13,5 +13,17 @@ export class Tab2Page {
 
   constructor(private delivery: DeliveryService) {
     console.log(delivery.getUsuario());
+    const usuarioInfo = delivery.getUsuario();
+    const objFactura = {
+      us_id: usuarioInfo[0],
+    };
+    delivery.traerFacturasId(objFactura).subscribe((data: any) => {
+      console.log(data.Res);
+      this.facturas = data.Res;
+    });
+  }
+
+  recargar() {
+    location.reload();
   }
 }
