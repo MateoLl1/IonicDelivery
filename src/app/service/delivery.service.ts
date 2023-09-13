@@ -59,4 +59,11 @@ export class DeliveryService {
       headers: this.headers,
     });
   }
+
+  //FACTURA
+  crearFactura(data: any) {
+    return this.http.post(`${this.servidorLocal}/generarFactura`, data, {
+      headers: this.headers,
+    });
+  }
 }

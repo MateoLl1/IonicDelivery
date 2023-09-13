@@ -13,11 +13,11 @@ export class RegistroPage implements OnInit {
   Internet: boolean = false;
 
   //DOM
-  nombre: string = '';
-  cedula: string = '';
-  telefono: string = '';
+  nombre: string = 'lukamodric';
+  cedula: string = '1234567899';
+  telefono: string = '1234567899';
   nickname: string = '';
-  password: string = '';
+  password: string = '12212121';
   fechaNacimiento: string = '';
   fechaActual: string = '';
 
@@ -87,7 +87,7 @@ export class RegistroPage implements OnInit {
               imagen: 'https://i.ibb.co/t2DmbCF/f4de72488ffa.png',
               hoy: this.fechaActual,
             };
-            console.log(objUsuario);
+            //console.log(objUsuario);
             this.delivery
               .registrarUsuario(objUsuario)
               .pipe(

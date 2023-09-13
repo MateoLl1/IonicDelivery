@@ -78,6 +78,8 @@
       <h6>{{cantidadTotal}} productos</h6>
       <h3>${{precioTotal| number : "1.2-2"}}</h3>
     </div>
-    <button class="btn btn-outline-warning w-50">Confirmar pedido</button>
+    <button (click)="generarPedido()" class="btn btn-outline-warning w-50">
+      Confirmar pedido
+    </button>
   </div>
 </ion-content>

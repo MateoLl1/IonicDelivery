@@ -9,6 +9,8 @@ import { DeliveryService } from './../../service/delivery.service';
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page {
+  facturas: any[] = [];
+
   constructor(private delivery: DeliveryService) {
     console.log(delivery.getUsuario());
   }

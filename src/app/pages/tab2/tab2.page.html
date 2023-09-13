@@ -1,7 +1,48 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Bienvenidos</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        <h2 class="text-center" style="margin-top: 10px">Tus Facturas</h2>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content [fullscreen]="true"> </ion-content>
+  <div class="caja-productos">
+    <div style="margin-top: 30px" class="alert alert-danger" role="alert">
+      No has realizado ninguna compra
+    </div>
+  </div>
+  <ion-accordion-group>
+    <ion-accordion>
+      <ion-item slot="header" color="light">
+        <ion-label>First Accordion</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <div class="alert alert-danger" role="alert">
+          No has realizado ninguna compra
+        </div>
+      </div>
+    </ion-accordion>
+    <ion-accordion>
+      <ion-item slot="header" color="light">
+        <ion-label>First Accordion</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <div class="alert alert-danger" role="alert">
+          No has realizado ninguna compra
+        </div>
+      </div>
+    </ion-accordion>
+    <ion-accordion>
+      <ion-item slot="header" color="light">
+        <ion-label>First Accordion</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <div class="alert alert-danger" role="alert">
+          No has realizado ninguna compra
+        </div>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+  <!-- ////////////// -->
+</ion-content>
