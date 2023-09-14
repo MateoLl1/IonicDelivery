@@ -9,7 +9,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class Tab3Page {
   //DOM
-  nombre: string = 'dawd';
+  nombre: string = '';
   nickname: string = '';
   password: string = '';
   cedula: string = '';

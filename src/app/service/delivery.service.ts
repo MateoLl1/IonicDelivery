@@ -11,7 +11,7 @@ export class DeliveryService {
   servidorLocal = `${this.online}`;
 
   //Variables megaGlobales
-  idUsuario: number = 1;
+  idUsuario: number = 0;
   nombreUsuario: string | null = null;
 
   headers = new HttpHeaders({

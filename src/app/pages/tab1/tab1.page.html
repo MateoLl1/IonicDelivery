@@ -8,16 +8,7 @@
       </ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-fab
-    (click)="recargar()"
-    vertical="top"
-    horizontal="end"
-    style="bottom: 70px; right: 20px"
-  >
-    <ion-fab-button>
-      <ion-icon name="reload"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+
   <!-- ////// -->
   <div class="centrar-contenedor m-5">
     <a
@@ -42,5 +33,10 @@
         </div>
       </div>
     </a>
+  </div>
+  <div class="d-grid gap-2 col-6 mx-auto mb-5">
+    <button (click)="recargar()" class="btn btn-primary" type="button">
+      Reiniciar
+    </button>
   </div>
 </ion-content>
